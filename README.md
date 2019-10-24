@@ -9,7 +9,7 @@ See the scene `SampleScene` and script `PstTest` for an example usage of the `Ps
 
 ## Integration via the Unity-Package-Manager
 
-Any Unity version supporting the Unity-Package-Manager is able to add this PST interface as a package. Locate the `Packages/manifest.json` (near the `Assets/`) and the following line:
+Any Unity version supporting the Unity-Package-Manager is able to add this PST interface as a package. Locate the `Packages/manifest.json` (near the `Assets/`) and add he following line:
 > "com.simteam.pst": "https://github.com/fh-joanneum-research-and-design-lab/pst-integration.git#1.0.0"
 
 Note that the version number at the end relates to any git tag. Every git tag in this repository will link to a Unity-Package-Manager compliant subtree of this repository. When adding this as a package be sure to check the git tags if a newer version is available. 
