@@ -1,0 +1,15 @@
+{
+	"name": "com.simteam.pst",
+	"displayName": "PST",
+	"description": "An interface communicating with the PST REST server.",
+	"version": "0.0.11",
+	"unity": "2018.4",
+	"repository": {
+		"type": "git",
+		"url": "git+https://bitbucket.org/rdlsimteam/pst-integration.git"
+	},
+	"src": "Assets/PST",
+	"dependencies": { 
+		"com.simteam.utilities": "1.0.7"
+	}
+}
