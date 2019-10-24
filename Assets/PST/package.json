@@ -1,7 +1,7 @@
 {
 	"name": "com.simteam.pst",
-	"displayName": "Unity3D PST Integration",
-	"description": "An interface communicating with the PST REST server.",
+	"displayName": "PST Integration",
+	"description": "An interface for Unity3D which communicates with the PST REST server.",
 	"version": "1.0.0",
 	"unity": "2018.4",
 	"repository": {
