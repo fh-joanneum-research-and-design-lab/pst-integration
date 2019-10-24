@@ -1,1 +1,3 @@
-# pst-integration
+Communicating with the PST Pico via its REST server, since the PST SDK only supports 32-bit.
+
+Using the [ServiceStack](https://servicestack.net/) for communication with the REST server. Note that [Server sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format) are used for getting TrackerData (see [PST docs](file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_start_tracker_data_stream.html)). <!-- PST docs only available if the PST software suite is installed; its a local documentation -->
