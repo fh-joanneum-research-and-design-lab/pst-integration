@@ -1,15 +1,14 @@
 {
 	"name": "com.simteam.pst",
-	"displayName": "PST",
+	"displayName": "Unity3D PST Integration",
 	"description": "An interface communicating with the PST REST server.",
-	"version": "0.0.11",
+	"version": "1.0.0",
 	"unity": "2018.4",
 	"repository": {
 		"type": "git",
-		"url": "git+https://bitbucket.org/rdlsimteam/pst-integration.git"
+		"url": "git+https://github.com/fh-joanneum-research-and-design-lab/pst-integration.git"
 	},
 	"src": "Assets/PST",
-	"dependencies": { 
-		"com.simteam.utilities": "1.0.7"
+	"dependencies": {
 	}
 }
