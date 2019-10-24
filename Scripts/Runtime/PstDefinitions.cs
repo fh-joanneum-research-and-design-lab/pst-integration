@@ -1,5 +1,6 @@
 ﻿using System;
 using pst.REST;
+using pst.Utility;
 using UnityEngine;
 
 namespace pst
@@ -16,7 +17,7 @@ namespace pst
         private TargetPose[] m_targetPoses;
         private double       m_timestamp;
 
-        public PstTrackerData( int sequenceNumber, double timestamp, TargetPose[] targetPoses )
+        public PstTrackerData(int sequenceNumber, double timestamp, TargetPose[] targetPoses)
         {
             m_sequenceNumber = sequenceNumber;
             m_timestamp      = timestamp;
@@ -26,15 +27,15 @@ namespace pst
         /// <summary>
         ///     Constructor to convert to this exposed format.
         /// </summary>
-        internal PstTrackerData( TrackerData td )
+        internal PstTrackerData(TrackerData td)
         {
             m_sequenceNumber = td.seqnumber;
             m_timestamp      = td.timestamp;
             m_targetPoses    = new TargetPose[td.targetPoses.Length];
 
-            for ( int i = 0; i < td.targetPoses.Length; i++ )
+            for (int i = 0; i < td.targetPoses.Length; i++)
             {
-                m_targetPoses[i] = new TargetPose( td.targetPoses[i].targetPose );
+                m_targetPoses[i] = new TargetPose(td.targetPoses[i].targetPose);
             }
         }
 
@@ -51,7 +52,7 @@ namespace pst
         public Vector3    position;
         public Quaternion rotation;
 
-        public TargetPose( int id, string name, Vector3 position, Quaternion rotation )
+        public TargetPose(int id, string name, Vector3 position, Quaternion rotation)
         {
             this.id       = id;
             this.name     = name;
@@ -62,7 +63,7 @@ namespace pst
         /// <summary>
         ///     Constructor to convert to this exposed format.
         /// </summary>
-        internal TargetPose( REST.TargetPose tp )
+        internal TargetPose(REST.TargetPose tp)
         {
             id       = tp.id;
             name     = tp.name;
@@ -79,16 +80,13 @@ namespace pst
             rotation.ToggleCoordinateSystemRef();
         }
     }
-
-    internal static class Constants
-    {
-        public const string LOG_PREFIX = "PST";
-    }
 }
 
 // @formatter:off
 namespace pst.REST
 {
+    // classes used for (de)serialization of the PST REST requests 
+    
     [Serializable]
     internal class TrackerDataWrapper
     {

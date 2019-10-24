@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
-using pst.REST;
-using Simteam.Utility.CustomCollections;
+﻿using pst.Utility;
 using UnityEngine;
 
 namespace pst
@@ -22,7 +17,7 @@ namespace pst
         {
             m_pstController = new PstController(
                 m_pollIntervalInMilliseconds, m_trackerDataStreamBufferSizeInBytes,
-                m_logSingleResponses, m_logContinuousResponses );
+                m_logSingleResponses, m_logContinuousResponses);
 
             m_pstTrackerDataHandler          =  new PstTrackerDataHandler();
             m_pstController.OnNewTrackerData += m_pstTrackerDataHandler.ProcessTrackerDataString;
@@ -30,13 +25,13 @@ namespace pst
             m_pstController.Start();
         }
 
-        [ContextMenu( nameof(Start) )]
+        [ContextMenu(nameof(Start))]
         protected virtual void Start()
         {
             m_pstController.StartTrackerDataStream();
         }
 
-        [ContextMenu( "Close" )]
+        [ContextMenu("Close")]
         protected virtual void OnApplicationQuit()
         {
             m_pstController.OnNewTrackerData -= m_pstTrackerDataHandler.ProcessTrackerDataString;
@@ -48,9 +43,9 @@ namespace pst
         /// <summary>
         ///     The returned pose is transformed s.t. it can be directly used in Unity.
         /// </summary>
-        public TargetPose GetLatestTargetPoseOf( string targetName )
+        public TargetPose GetLatestTargetPoseOf(string targetName)
         {
-            TargetPose pose = m_pstTrackerDataHandler.GetLatestTargetPoseOf( targetName );
+            TargetPose pose = m_pstTrackerDataHandler.GetLatestTargetPoseOf(targetName);
             pose.ToUnityCoordinateSystem();
             return pose;
         }
@@ -58,9 +53,9 @@ namespace pst
         /// <summary>
         ///     The returned pose is transformed s.t. it can be directly used in Unity.
         /// </summary>
-        public TargetPose GetLatestTargetPoseOf( int targetId )
+        public TargetPose GetLatestTargetPoseOf(int targetId)
         {
-            TargetPose pose = m_pstTrackerDataHandler.GetLatestTargetPoseOf( targetId );
+            TargetPose pose = m_pstTrackerDataHandler.GetLatestTargetPoseOf(targetId);
             pose.ToUnityCoordinateSystem();
             return pose;
         }
@@ -83,14 +78,14 @@ namespace pst
             );
         }
 
-        public void SetReferencePose( TargetPose pose )
+        public void SetReferencePose(TargetPose pose)
         {
-            SetReferencePose( pose.position, pose.rotation );
+            SetReferencePose(pose.position, pose.rotation);
         }
 
-        public void SetReferencePose( Vector3 position, Quaternion rotation )
+        public void SetReferencePose(Vector3 position, Quaternion rotation)
         {
-            SetReferencePose( position, rotation, Vector3.one );
+            SetReferencePose(position, rotation, Vector3.one);
         }
 
         /// <summary>
@@ -98,19 +93,19 @@ namespace pst
         ///     new reference matrix. Note that this method encapsulates the transformation of <paramref name="position" /> and
         ///     <paramref name="rotation" /> from a right-handed (Unity) to a left-handed (PST) coordinate system.
         /// </summary>
-        public void SetReferencePose( Vector3 position, Quaternion rotation, Vector3 scale )
+        public void SetReferencePose(Vector3 position, Quaternion rotation, Vector3 scale)
         {
             Matrix4x4 m = new Matrix4x4();
-            m.SetTRS( position.ToggleCoordinateSystem(), rotation.ToggleCoordinateSystem(), scale );
-            m_pstController.SetReference( m );
+            m.SetTRS(position.ToggleCoordinateSystem(), rotation.ToggleCoordinateSystem(), scale);
+            m_pstController.SetReference(m);
         }
 
 #region Serialized Field
 
-        [SerializeField]                        private bool m_logSingleResponses;
-        [SerializeField]                        private bool m_logContinuousResponses;
-        [Range( 2, 100 )] [SerializeField]      private int  m_pollIntervalInMilliseconds         = 10;
-        [Range( 1024, 10240 )] [SerializeField] private int  m_trackerDataStreamBufferSizeInBytes = 4096;
+        [SerializeField]                      private bool m_logSingleResponses;
+        [SerializeField]                      private bool m_logContinuousResponses;
+        [Range(2, 100)] [SerializeField]      private int  m_pollIntervalInMilliseconds         = 10;
+        [Range(1024, 10240)] [SerializeField] private int  m_trackerDataStreamBufferSizeInBytes = 4096;
 
 #endregion
     }
