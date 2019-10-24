@@ -3,13 +3,15 @@ using System.Globalization;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using pst.Utility;
 using RestSharp;
 using UnityEngine;
 
 namespace pst
 {
     /// <summary>
-    ///     Communicates with the PST device via its REST API.
+    ///     Communicates with the PST device via its REST API. All of the documentation should be available to you, if the
+    ///     related PST SDK is installed.
     /// </summary>
     public class PstController
     {
@@ -18,20 +20,20 @@ namespace pst
         /// </summary>
         public void Start()
         {
-            RestRequest   request  = new RestRequest( "Start" );
-            IRestResponse response = m_client.Post( request );
-            request  = new RestRequest( "Start" );
-            response = m_client.Post( request );
+            RestRequest   request  = new RestRequest("Start");
+            IRestResponse response = m_client.Post(request);
+            request  = new RestRequest("Start");
+            response = m_client.Post(request);
 
-            if ( string.IsNullOrEmpty( response.Content ) )
+            if (string.IsNullOrEmpty(response.Content))
             {
-                Debug.LogError( PstUtility.GetPstLogMessage( "REST Server not running." ) );
+                Debug.LogError(PstUtility.GetPstLogMessage("REST Server not running."));
                 s_serverIsOnline = false;
                 return;
             }
 
-            if ( m_logSingleResponses )
-                Debug.Log( PstUtility.GetPstLogMessage( response.Content ) );
+            if (m_logSingleResponses)
+                Debug.Log(PstUtility.GetPstLogMessage(response.Content));
 
             s_serverIsOnline = true;
         }
@@ -41,19 +43,19 @@ namespace pst
         /// </summary>
         public void CloseStreams()
         {
-            s_processContinuousTrackerData = false;
+            s_processingContinuousTrackerData = false;
 
-            RestRequest   request  = new RestRequest( "CloseStreams" );
-            IRestResponse response = m_client.Post( request );
+            RestRequest   request  = new RestRequest("CloseStreams");
+            IRestResponse response = m_client.Post(request);
 
-            if ( string.IsNullOrEmpty( response.Content ) )
+            if (string.IsNullOrEmpty(response.Content))
             {
-                Debug.Log( PstUtility.GetPstLogMessage( MSG_EMPTY_RESP ) );
+                Debug.Log(PstUtility.GetPstLogMessage(MSG_EMPTY_RESP));
                 return;
             }
 
-            if ( m_logSingleResponses )
-                Debug.Log( PstUtility.GetPstLogMessage( response.Content ) );
+            if (m_logSingleResponses)
+                Debug.Log(PstUtility.GetPstLogMessage(response.Content));
         }
 
         /// <summary>
@@ -61,19 +63,19 @@ namespace pst
         /// </summary>
         public void Pause()
         {
-            s_processContinuousTrackerData = false;
+            s_processingContinuousTrackerData = false;
 
-            RestRequest   request  = new RestRequest( "Pause" );
-            IRestResponse response = m_client.Post( request );
+            RestRequest   request  = new RestRequest("Pause");
+            IRestResponse response = m_client.Post(request);
 
-            if ( string.IsNullOrEmpty( response.Content ) )
+            if (string.IsNullOrEmpty(response.Content))
             {
-                Debug.Log( PstUtility.GetPstLogMessage( MSG_EMPTY_RESP ) );
+                Debug.Log(PstUtility.GetPstLogMessage(MSG_EMPTY_RESP));
                 return;
             }
 
-            if ( m_logSingleResponses )
-                Debug.Log( PstUtility.GetPstLogMessage( response.Content ) );
+            if (m_logSingleResponses)
+                Debug.Log(PstUtility.GetPstLogMessage(response.Content));
         }
 
         /// <summary>
@@ -86,28 +88,28 @@ namespace pst
         /// </summary>
         public Matrix4x4 GetReference()
         {
-            RestRequest   request  = new RestRequest( "GetReference" );
-            IRestResponse response = m_client.Get( request );
+            RestRequest   request  = new RestRequest("GetReference");
+            IRestResponse response = m_client.Get(request);
 
-            if ( string.IsNullOrEmpty( response.Content ) )
+            if (string.IsNullOrEmpty(response.Content))
             {
-                Debug.Log( PstUtility.GetPstLogMessage( MSG_EMPTY_RESP ) );
+                Debug.Log(PstUtility.GetPstLogMessage(MSG_EMPTY_RESP));
                 return Matrix4x4.identity;
             }
 
-            if ( m_logSingleResponses )
-                Debug.Log( PstUtility.GetPstLogMessage( response.Content ) );
+            if (m_logSingleResponses)
+                Debug.Log(PstUtility.GetPstLogMessage(response.Content));
 
             Matrix4x4 referenceMatrix =
                 Array.ConvertAll(
-                         ValuesBetweenBrackets( response.Content ),
-                         x => { return float.Parse( x, NumberFormatInfo.InvariantInfo ); } )
+                         ValuesBetweenBrackets(response.Content),
+                         x => { return float.Parse(x, NumberFormatInfo.InvariantInfo); })
                      .FromRowMajor();
 
             // the identity matrix represents the default PST reference system, which is located at 1 meter away from the tracker
             // meaning whenever we get an identity matrix, we need to return a matrix that accurately represents this 1 meter offset!
-            if ( referenceMatrix.isIdentity )
-                referenceMatrix.SetPosition( new Vector3( 0, 0, 1 ) );
+            if (referenceMatrix.isIdentity)
+                referenceMatrix.SetPosition(new Vector3(0, 0, 1));
 
             return referenceMatrix;
         }
@@ -119,17 +121,17 @@ namespace pst
         /// </summary>
         public void SetDefaultReference()
         {
-            RestRequest   request  = new RestRequest( "SetDefaultReference" );
-            IRestResponse response = m_client.Post( request );
+            RestRequest   request  = new RestRequest("SetDefaultReference");
+            IRestResponse response = m_client.Post(request);
 
-            if ( string.IsNullOrEmpty( response.Content ) )
+            if (string.IsNullOrEmpty(response.Content))
             {
-                Debug.Log( PstUtility.GetPstLogMessage( MSG_EMPTY_RESP ) );
+                Debug.Log(PstUtility.GetPstLogMessage(MSG_EMPTY_RESP));
                 return;
             }
 
-            if ( m_logSingleResponses )
-                Debug.Log( PstUtility.GetPstLogMessage( response.Content ) );
+            if (m_logSingleResponses)
+                Debug.Log(PstUtility.GetPstLogMessage(response.Content));
         }
 
         /// <summary>
@@ -137,28 +139,28 @@ namespace pst
         ///     <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_set_reference.html">SetReference</a>
         ///     .
         /// </summary>
-        public void SetReference( Matrix4x4 newReference )
+        public void SetReference(Matrix4x4 newReference)
         {
-            if ( !newReference.ValidTRS() )
+            if (!newReference.ValidTRS())
             {
-                Debug.LogWarning( PstUtility.GetPstLogMessage( "No valid TRS matrix given. Not setting reference!" ) );
+                Debug.LogWarning(PstUtility.GetPstLogMessage("No valid TRS matrix given. Not setting reference!"));
                 return;
             }
 
-            RestRequest request = new RestRequest( "SetReference" );
+            RestRequest request = new RestRequest("SetReference");
             var         tmp     = new { ReferenceMatrix = newReference.ToRowMajor() };
-            request.AddJsonBody( tmp );
+            request.AddJsonBody(tmp);
 
-            IRestResponse response = m_client.Post( request );
+            IRestResponse response = m_client.Post(request);
 
-            if ( string.IsNullOrEmpty( response.Content ) )
+            if (string.IsNullOrEmpty(response.Content))
             {
-                Debug.Log( PstUtility.GetPstLogMessage( MSG_EMPTY_RESP ) );
+                Debug.Log(PstUtility.GetPstLogMessage(MSG_EMPTY_RESP));
                 return;
             }
 
-            if ( m_logSingleResponses )
-                Debug.Log( PstUtility.GetPstLogMessage( response.Content ) );
+            if (m_logSingleResponses)
+                Debug.Log(PstUtility.GetPstLogMessage(response.Content));
         }
 
         /// <summary>
@@ -170,26 +172,26 @@ namespace pst
         /// </summary>
         public void StartTrackerDataStream()
         {
-            if ( s_processContinuousTrackerData )
+            if (s_processingContinuousTrackerData)
             {
-                Debug.Log( PstUtility.GetPstLogMessage( "PST TrackerData is already being processed." ) );
+                Debug.Log(PstUtility.GetPstLogMessage("PST TrackerData is already being processed."));
                 return;
             }
 
-            s_processContinuousTrackerData = true;
+            s_processingContinuousTrackerData = true;
 
-            RestRequest request = new RestRequest( "StartTrackerDataStream" );
+            RestRequest request = new RestRequest("StartTrackerDataStream");
             request.ResponseWriter = stream =>
             {
                 Task.Run(
                     () =>
                     {
-                        using ( stream )
+                        using (stream)
                         {
-                            if ( !stream.CanRead )
+                            if (!stream.CanRead)
                             {
-                                Debug.LogError( PstUtility.GetPstLogMessage( "Cannot 'Read' stream!" ) );
-                                s_processContinuousTrackerData = false;
+                                Debug.LogError(PstUtility.GetPstLogMessage("Cannot 'Read' stream!"));
+                                s_processingContinuousTrackerData = false;
                                 return;
                             }
 
@@ -197,28 +199,28 @@ namespace pst
                             // --> no chunk, which has to be put together later on
                             byte[] buffer   = new byte[m_trackerDataStreamBufferSize];
                             int    readSize = 0;
-                            while ( s_processContinuousTrackerData )
+                            while (s_processingContinuousTrackerData)
                             {
-                                Array.Clear( buffer, 0, m_trackerDataStreamBufferSize );
-                                if ( (readSize = stream.Read( buffer, 0, buffer.Length )) > 0 )
+                                Array.Clear(buffer, 0, m_trackerDataStreamBufferSize);
+                                if ((readSize = stream.Read(buffer, 0, buffer.Length)) > 0)
                                 {
                                     // cutting the zero bytes of the buffer before converting them to string 
                                     string contentAsString =
-                                        Encoding.UTF8.GetString( buffer, 0, readSize );
+                                        Encoding.UTF8.GetString(buffer, 0, readSize);
 
-                                    if ( m_logContinuousResponses )
-                                        Debug.Log( $"{readSize}; {contentAsString}" );
+                                    if (m_logContinuousResponses)
+                                        Debug.Log($"{readSize}; {contentAsString}");
 
-                                    OnNewTrackerData?.Invoke( contentAsString );
+                                    OnNewTrackerData?.Invoke(contentAsString);
                                 }
 
-                                Thread.Sleep( m_pollInterval );
+                                Thread.Sleep(m_pollInterval);
                             }
                         }
-                    } ).Start();
+                    }).Start();
             };
 
-            m_client.ExecuteAsync( request, null );
+            m_client.ExecuteAsync(request, null);
         }
 
         /// <summary>
@@ -227,17 +229,17 @@ namespace pst
         /// </summary>
         public string GetTargetList()
         {
-            RestRequest   request  = new RestRequest( "GetTargetList" );
-            IRestResponse response = m_client.Get( request );
+            RestRequest   request  = new RestRequest("GetTargetList");
+            IRestResponse response = m_client.Get(request);
 
-            if ( string.IsNullOrEmpty( response.Content ) )
+            if (string.IsNullOrEmpty(response.Content))
             {
-                Debug.Log( PstUtility.GetPstLogMessage( MSG_EMPTY_RESP ) );
+                Debug.Log(PstUtility.GetPstLogMessage(MSG_EMPTY_RESP));
                 return string.Empty;
             }
 
-            if ( m_logSingleResponses )
-                Debug.Log( PstUtility.GetPstLogMessage( response.Content ) );
+            if (m_logSingleResponses)
+                Debug.Log(PstUtility.GetPstLogMessage(response.Content));
 
             return response.Content;
         }
@@ -248,19 +250,19 @@ namespace pst
         /// </summary>
         public double GetFramerate()
         {
-            RestRequest   request  = new RestRequest( "GetFramerate" );
-            IRestResponse response = m_client.Get( request );
+            RestRequest   request  = new RestRequest("GetFramerate");
+            IRestResponse response = m_client.Get(request);
 
-            if ( string.IsNullOrEmpty( response.Content ) )
+            if (string.IsNullOrEmpty(response.Content))
             {
-                Debug.Log( PstUtility.GetPstLogMessage( MSG_EMPTY_RESP ) );
+                Debug.Log(PstUtility.GetPstLogMessage(MSG_EMPTY_RESP));
                 return default;
             }
 
-            if ( m_logSingleResponses )
-                Debug.Log( PstUtility.GetPstLogMessage( response.Content ) );
+            if (m_logSingleResponses)
+                Debug.Log(PstUtility.GetPstLogMessage(response.Content));
 
-            double d = double.Parse( ValueBetween( response.Content, ":", "}" ), NumberFormatInfo.InvariantInfo );
+            double d = double.Parse(ValueBetween(response.Content, ":", "}"), NumberFormatInfo.InvariantInfo);
             return d;
         }
 
@@ -271,21 +273,21 @@ namespace pst
         /// </summary>
         public double[] GetSupportedFramerates()
         {
-            RestRequest   request  = new RestRequest( "GetSupportedFramerates" );
-            IRestResponse response = m_client.Get( request );
+            RestRequest   request  = new RestRequest("GetSupportedFramerates");
+            IRestResponse response = m_client.Get(request);
 
-            if ( string.IsNullOrEmpty( response.Content ) )
+            if (string.IsNullOrEmpty(response.Content))
             {
-                Debug.Log( PstUtility.GetPstLogMessage( MSG_EMPTY_RESP ) );
+                Debug.Log(PstUtility.GetPstLogMessage(MSG_EMPTY_RESP));
                 return default;
             }
 
-            if ( m_logSingleResponses )
-                Debug.Log( PstUtility.GetPstLogMessage( response.Content ) );
+            if (m_logSingleResponses)
+                Debug.Log(PstUtility.GetPstLogMessage(response.Content));
 
             double[] framerates = Array.ConvertAll(
-                ValuesBetweenBrackets( response.Content ),
-                x => { return double.Parse( x, NumberFormatInfo.InvariantInfo ); } );
+                ValuesBetweenBrackets(response.Content),
+                x => { return double.Parse(x, NumberFormatInfo.InvariantInfo); });
 
             return framerates;
         }
@@ -295,22 +297,22 @@ namespace pst
         ///     <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_set_framerate.html">SetFramerate</a>
         ///     .
         /// </summary>
-        public void SetFramerate( double targetFramerate )
+        public void SetFramerate(double targetFramerate)
         {
-            RestRequest request = new RestRequest( "SetFramerate" );
+            RestRequest request = new RestRequest("SetFramerate");
             var         tmp     = new { Framerate = targetFramerate };
-            request.AddJsonBody( tmp );
+            request.AddJsonBody(tmp);
 
-            IRestResponse response = m_client.Post( request );
+            IRestResponse response = m_client.Post(request);
 
-            if ( string.IsNullOrEmpty( response.Content ) )
+            if (string.IsNullOrEmpty(response.Content))
             {
-                Debug.Log( PstUtility.GetPstLogMessage( MSG_EMPTY_RESP ) );
+                Debug.Log(PstUtility.GetPstLogMessage(MSG_EMPTY_RESP));
                 return;
             }
 
-            if ( m_logSingleResponses )
-                Debug.Log( PstUtility.GetPstLogMessage( response.Content ) );
+            if (m_logSingleResponses)
+                Debug.Log(PstUtility.GetPstLogMessage(response.Content));
         }
 
         /// <summary>
@@ -320,19 +322,19 @@ namespace pst
         /// </summary>
         public double GetExposure()
         {
-            RestRequest   request  = new RestRequest( "GetExposure" );
-            IRestResponse response = m_client.Get( request );
+            RestRequest   request  = new RestRequest("GetExposure");
+            IRestResponse response = m_client.Get(request);
 
-            if ( string.IsNullOrEmpty( response.Content ) )
+            if (string.IsNullOrEmpty(response.Content))
             {
-                Debug.Log( PstUtility.GetPstLogMessage( MSG_EMPTY_RESP ) );
+                Debug.Log(PstUtility.GetPstLogMessage(MSG_EMPTY_RESP));
                 return default;
             }
 
-            if ( m_logSingleResponses )
-                Debug.Log( PstUtility.GetPstLogMessage( response.Content ) );
+            if (m_logSingleResponses)
+                Debug.Log(PstUtility.GetPstLogMessage(response.Content));
 
-            double d = double.Parse( ValueBetween( response.Content, ":", "}" ), NumberFormatInfo.InvariantInfo );
+            double d = double.Parse(ValueBetween(response.Content, ":", "}"), NumberFormatInfo.InvariantInfo);
             return d;
         }
 
@@ -343,23 +345,23 @@ namespace pst
         /// </summary>
         public (double, double) GetExposureRange()
         {
-            RestRequest   request  = new RestRequest( "GetExposureRange" );
-            IRestResponse response = m_client.Get( request );
+            RestRequest   request  = new RestRequest("GetExposureRange");
+            IRestResponse response = m_client.Get(request);
 
-            if ( string.IsNullOrEmpty( response.Content ) )
+            if (string.IsNullOrEmpty(response.Content))
             {
-                Debug.Log( PstUtility.GetPstLogMessage( MSG_EMPTY_RESP ) );
+                Debug.Log(PstUtility.GetPstLogMessage(MSG_EMPTY_RESP));
                 return default;
             }
 
-            if ( m_logSingleResponses )
-                Debug.Log( PstUtility.GetPstLogMessage( response.Content ) );
+            if (m_logSingleResponses)
+                Debug.Log(PstUtility.GetPstLogMessage(response.Content));
 
-            string strMax = ValueBetween( response.Content, "\"max\":", "," );
-            string strMin = ValueBetween( response.Content, "\"min\":", "}}" );
+            string strMax = ValueBetween(response.Content, "\"max\":", ",");
+            string strMin = ValueBetween(response.Content, "\"min\":", "}}");
 
-            double max = double.Parse( strMax, NumberFormatInfo.InvariantInfo );
-            double min = double.Parse( strMin, NumberFormatInfo.InvariantInfo );
+            double max = double.Parse(strMax, NumberFormatInfo.InvariantInfo);
+            double min = double.Parse(strMin, NumberFormatInfo.InvariantInfo);
 
             return (min, max);
         }
@@ -369,38 +371,38 @@ namespace pst
         ///     <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_set_exposure.html">SetExposure</a>
         ///     .
         /// </summary>
-        public void SetExposure( double exposure )
+        public void SetExposure(double exposure)
         {
-            RestRequest request = new RestRequest( "SetExposure" );
+            RestRequest request = new RestRequest("SetExposure");
             var         tmp     = new { Exposure = exposure };
-            request.AddJsonBody( tmp );
+            request.AddJsonBody(tmp);
 
-            IRestResponse response = m_client.Post( request );
+            IRestResponse response = m_client.Post(request);
 
-            if ( string.IsNullOrEmpty( response.Content ) )
+            if (string.IsNullOrEmpty(response.Content))
             {
-                Debug.Log( PstUtility.GetPstLogMessage( MSG_EMPTY_RESP ) );
+                Debug.Log(PstUtility.GetPstLogMessage(MSG_EMPTY_RESP));
                 return;
             }
 
-            if ( m_logSingleResponses )
-                Debug.Log( PstUtility.GetPstLogMessage( response.Content ) );
+            if (m_logSingleResponses)
+                Debug.Log(PstUtility.GetPstLogMessage(response.Content));
         }
 
-        private string[] ValuesBetweenBrackets( string s )
+        private string[] ValuesBetweenBrackets(string s)
         {
             // excluding the square brackets
-            int    startIndex = s.IndexOf( '[' ) + 1;
-            int    endIndex   = s.LastIndexOf( ']' );
-            string tmp        = s.Substring( startIndex, endIndex - startIndex );
-            return tmp.Split( ',' );
+            int    startIndex = s.IndexOf('[') + 1;
+            int    endIndex   = s.LastIndexOf(']');
+            string tmp        = s.Substring(startIndex, endIndex - startIndex);
+            return tmp.Split(',');
         }
 
-        private string ValueBetween( string s, string start, string end )
+        private string ValueBetween(string s, string start, string end)
         {
-            int startIndex = s.IndexOf( start, StringComparison.InvariantCulture ) + start.Length;
-            int endIndex   = s.LastIndexOf( end, StringComparison.InvariantCulture );
-            return s.Substring( startIndex, endIndex - startIndex );
+            int startIndex = s.IndexOf(start, StringComparison.InvariantCulture) + start.Length;
+            int endIndex   = s.LastIndexOf(end, StringComparison.InvariantCulture);
+            return s.Substring(startIndex, endIndex - startIndex);
         }
 
 #region Ctrs
@@ -431,7 +433,7 @@ namespace pst
 
 #region public fields
 
-        public delegate void PstControllerHandler( string information );
+        public delegate void PstControllerHandler(string information);
 
         public event PstControllerHandler OnNewTrackerData;
 
@@ -446,10 +448,10 @@ namespace pst
 
         private const string MSG_EMPTY_RESP = "Response was empty.";
 
-        private static bool s_processContinuousTrackerData;
+        private static bool s_processingContinuousTrackerData;
         private static bool s_serverIsOnline; // indicates whether the REST server is up and running
 
-        private RestClient m_client = new RestClient( PST_PICO_REST_BASE_URL );
+        private RestClient m_client = new RestClient(PST_PICO_REST_BASE_URL);
         private int        m_pollInterval;
         private bool       m_logSingleResponses;
         private bool       m_logContinuousResponses;

@@ -241,8 +241,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d535a398bee440746b94514c8913ec05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  g1: {fileID: 2059708524}
-  g2: {fileID: 2145002844}
+  m_mappedPstTargets:
+  - pstTargetName: Target1Name
+    relatedGameObject: {fileID: 2059708528}
+  - pstTargetName: Target2Name
+    relatedGameObject: {fileID: 2145002848}
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
