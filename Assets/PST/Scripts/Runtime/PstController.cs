@@ -16,7 +16,7 @@ namespace pst
     public class PstController
     {
         /// <summary>
-        ///     See <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_start.html">Start</a>.
+        ///     See <a href="http://files.ps-tech.com/pst/docs/5.0.1/SDK/_start.html">Start</a>.
         /// </summary>
         public void Start()
         {
@@ -39,7 +39,7 @@ namespace pst
         }
 
         /// <summary>
-        ///     See <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_close_streams.html">CloseStreams</a>.
+        ///     See <a href="http://files.ps-tech.com/pst/docs/5.0.1/SDK/_close_streams.html">CloseStreams</a>.
         /// </summary>
         public void CloseStreams()
         {
@@ -59,7 +59,7 @@ namespace pst
         }
 
         /// <summary>
-        ///     See <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_pause.html">Pause</a>.
+        ///     See <a href="http://files.ps-tech.com/pst/docs/5.0.1/SDK/_pause.html">Pause</a>.
         /// </summary>
         public void Pause()
         {
@@ -79,7 +79,7 @@ namespace pst
         }
 
         /// <summary>
-        ///     See <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_get_reference.html">GetReference</a>.
+        ///     See <a href="http://files.ps-tech.com/pst/docs/5.0.1/SDK/_get_reference.html">GetReference</a>.
         ///     <para />
         ///     From the documentation: Tracking results are reported relative to a predefined right-handed Cartesian coordinate
         ///     system, called the reference system. The default reference system is located at 1 meter from the PST Tracker. It is
@@ -116,7 +116,7 @@ namespace pst
 
         /// <summary>
         ///     See
-        ///     <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_set_default_reference.html">SetDefaultReference</a>
+        ///     <a href="http://files.ps-tech.com/pst/docs/5.0.1/SDK/_set_default_reference.html">SetDefaultReference</a>
         ///     .
         /// </summary>
         public void SetDefaultReference()
@@ -136,7 +136,7 @@ namespace pst
 
         /// <summary>
         ///     See
-        ///     <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_set_reference.html">SetReference</a>
+        ///     <a href="http://files.ps-tech.com/pst/docs/5.0.1/SDK/_set_reference.html">SetReference</a>
         ///     .
         /// </summary>
         public void SetReference(Matrix4x4 newReference)
@@ -165,7 +165,7 @@ namespace pst
 
         /// <summary>
         ///     See
-        ///     <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_start_tracker_data_stream.html">
+        ///     <a href="http://files.ps-tech.com/pst/docs/5.0.1/SDK/_start_tracker_data_stream.html">
         ///         StartTrackerDataStream
         ///     </a>
         ///     .
@@ -225,7 +225,7 @@ namespace pst
 
         /// <summary>
         ///     See
-        ///     <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_get_target_list.html">GetTargetList</a>.
+        ///     <a href="http://files.ps-tech.com/pst/docs/5.0.1/SDK/_get_target_list.html">GetTargetList</a>.
         /// </summary>
         public string GetTargetList()
         {
@@ -246,7 +246,7 @@ namespace pst
 
         /// <summary>
         ///     See
-        ///     <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_get_framerate.html">GetFramerate</a>.
+        ///     <a href="http://files.ps-tech.com/pst/docs/5.0.1/SDK/_get_framerate.html">GetFramerate</a>.
         /// </summary>
         public double GetFramerate()
         {
@@ -268,7 +268,7 @@ namespace pst
 
         /// <summary>
         ///     See
-        ///     <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_get_supported_framerates.html">GetSupportedFramerates</a>
+        ///     <a href="http://files.ps-tech.com/pst/docs/5.0.1/SDK/_get_supported_framerates.html">GetSupportedFramerates</a>
         ///     .
         /// </summary>
         public double[] GetSupportedFramerates()
@@ -294,7 +294,7 @@ namespace pst
 
         /// <summary>
         ///     See
-        ///     <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_set_framerate.html">SetFramerate</a>
+        ///     <a href="http://files.ps-tech.com/pst/docs/5.0.1/SDK/_set_framerate.html">SetFramerate</a>
         ///     .
         /// </summary>
         public void SetFramerate(double targetFramerate)
@@ -317,7 +317,7 @@ namespace pst
 
         /// <summary>
         ///     See
-        ///     <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_get_exposure.html">GetExposure</a>
+        ///     <a href="http://files.ps-tech.com/pst/docs/5.0.1/SDK/_get_exposure.html">GetExposure</a>
         ///     .
         /// </summary>
         public double GetExposure()
@@ -340,7 +340,7 @@ namespace pst
 
         /// <summary>
         ///     See
-        ///     <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_get_exposure_range.html">GetExposureRange</a>
+        ///     <a href="http://files.ps-tech.com/pst/docs/5.0.1/SDK/_get_exposure_range.html">GetExposureRange</a>
         ///     .
         /// </summary>
         public (double, double) GetExposureRange()
@@ -368,7 +368,7 @@ namespace pst
 
         /// <summary>
         ///     See
-        ///     <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_set_exposure.html">SetExposure</a>
+        ///     <a href="http://files.ps-tech.com/pst/docs/5.0.1/SDK/_set_exposure.html">SetExposure</a>
         ///     .
         /// </summary>
         public void SetExposure(double exposure)
@@ -442,7 +442,7 @@ namespace pst
 #region private fields
 
         /// <summary>
-        ///     <a href="file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/rest.html">REST API Doc</a>
+        ///     <a href="http://files.ps-tech.com/pst/docs/5.0.1/SDK/rest.html">REST API Doc</a>
         /// </summary>
         private const string PST_PICO_REST_BASE_URL = "http://localhost:7278/PSTapi/";
 

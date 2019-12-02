@@ -19,7 +19,7 @@ Note that newer versions of the Unity-Package-Manager should be able to add this
 ## Notes
 
 * The PST SDK (5.0.1.0-acae3ae) currently only supports 32-bit applications, therefore 64-bit application must use the PST REST API.
-* Note that PST uses [Server sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format) to expose `TrackerData` (see [PST docs](file:///C:/Program%20Files%20(x86)/PS-Tech/PST/Development/docs/_start_tracker_data_stream.html); this is a local link to the local PST documentation and will only work if you have the PST SDK installed).
+* Note that PST uses [Server sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format) to expose `TrackerData` (see [PST docs](http://files.ps-tech.com/pst/docs/5.0.1/SDK/_start_tracker_data_stream.html)).
 
 ## License
 
